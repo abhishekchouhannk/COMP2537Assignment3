@@ -94,7 +94,7 @@ h3 {
   }
   
   .modal-body {
-    height: 400px; /* Fixed height for the modal body */
+    height: 300px; /* Fixed height for the modal body */
     width: 100%; /* Fixed width for the modal body */
     overflow-y: auto; /* Enable vertical scrolling within the modal body */
   }
@@ -102,7 +102,11 @@ h3 {
   .modal img {
     width: 100%;
     height: 100%;
-    margin-left: 60%;
+    margin-left: 100px;
   }
-  
+
+  #displayed {
+    color: #2595c2;
+    margin-top: 20px;
+  }
   

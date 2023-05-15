@@ -30,12 +30,12 @@ const updatePaginationDiv = (currentPage, numPages) => {
   //   endPage = currentPage + 2;
   // }
   $("#pagination").append(`
-    <button class="btn btn-primary page ml-1 numberedButtons" value="1">First</button>
+    <button class="btn btn-primary page ml-1 numberedButtons" value="1">Start</button>
     `);
 
     if (!(currentPage == 1)) {
       $("#pagination").append(`
-      <button class="btn btn-primary page ml-1 numberedButtons" value="${currentPage - 1}">Prev</button>
+      <button class="btn btn-primary page ml-1 numberedButtons" value="${currentPage - 1}"><<</button>
       `);
     }
     
@@ -54,7 +54,7 @@ const updatePaginationDiv = (currentPage, numPages) => {
 
   if (!(currentPage == numPages)) {
     $("#pagination").append(`
-    <button class="btn btn-primary page ml-1 numberedButtons" value="${currentPage + 1}" style="margin-left: 20px;">Next</button>
+    <button class="btn btn-primary page ml-1 numberedButtons" value="${currentPage + 1}" style="margin-left: 20px;">>></button>
     `);
   }
 
@@ -70,6 +70,24 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE
   );
+  const url = selected_pokemons[0].url;  
+  const regex = /\/(\d+)\/$/;
+  const match = url.match(regex);
+
+  let number;
+  if (match) {
+    number = match[1] - '0';
+    console.log(number); // Output: 14
+  } else {
+    console.log("No number found in the URL");
+  } 
+
+  let startPokemon = number;
+  let endPokemon = number + 9;
+  // console.log((selected_pokemons[0].url.substring(34, 35)) - '0');
+
+  $('#displayed').empty();
+  $('#displayed').append(`Displaying Pokemon ${startPokemon}-${endPokemon} of ${pokemons.length}`);
 
   $("#pokeCards").empty();
 
@@ -95,9 +113,6 @@ const setup = async () => {
     "https://pokeapi.co/api/v2/pokemon?offset=0&limit=810"
   );
   pokemons = response.data.results;
-  console.log(pokemons.length);
-
-  // $('#displayed').append(`Displaying page  ${pokemons.length}`);
 
   paginate(currentPage, PAGE_SIZE, pokemons);
   const numPages = Math.ceil(pokemons.length / PAGE_SIZE);
@@ -107,13 +122,10 @@ const setup = async () => {
   // add event listener to each pokemon card
   $("body").on("click", ".pokeCard", async function (e) {
     const pokemonName = $(this).attr("pokeName");
-    // console.log("pokemonName: ", pokemonName);
     const res = await axios.get(
       `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
     );
-    // console.log("res.data: ", res.data);
     const types = res.data.types.map((type) => type.type.name);
-    // console.log("types: ", types);
     $(".modal-body").html(`
         <div style="width:200px">
         <img src="${

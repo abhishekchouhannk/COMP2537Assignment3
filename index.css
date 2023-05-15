@@ -1,0 +1,43 @@
+#pokeCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+  
+.pokeCard {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    background-color: #2595c2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease; /* Adding a transition for smooth color change */
+}
+  
+.pokeCard:hover {
+    background-color: #e8bb19; /* Changing the background color on hover */
+}
+
+.btn {
+    background-color: #b8f2f2;
+    color: #000200;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.btn:hover {
+    background-color: #d1116e;
+}
+  
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+  
+  

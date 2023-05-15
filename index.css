@@ -1,43 +1,108 @@
+body {
+    font-family: "Comic Sans MS", cursive;
+  }
+
+  .header {
+    background-color: #edaa4d;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-size: 36px;
+    color: #ff0000;
+    margin: 0;
+  }
+
 #pokeCards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  margin-top: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-  
+
 .pokeCard {
-    width: 200px;
-    height: 200px;
-    margin: 10px;
-    border: 1px solid rgb(0, 0, 0);
-    border-radius: 10px;
-    background-color: #2595c2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease; /* Adding a transition for smooth color change */
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  border: 2px solid rgb(244, 175, 85);
+  border-radius: 10px;
+  background-color: #2595c2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease; /* Adding a transition for smooth color change */
 }
-  
+
 .pokeCard:hover {
-    background-color: #e8bb19; /* Changing the background color on hover */
+  background-color: #e8bb19; /* Changing the background color on hover */
 }
 
 .btn {
-    background-color: #b8f2f2;
-    color: #000200;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
+  background-color: #44e2e2;
+  color: #000200;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
 }
-  
+
 .btn:hover {
+  background-color: #d1116e;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+h3 {
+  font-size: medium;
+}
+
+/* .modal {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 90vh;
+} */
+
+#pagination {
+    margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.current {
     background-color: #d1116e;
 }
-  
-.btn:focus {
-    outline: none;
-    box-shadow: none;
+
+#displayed {
+    text-align: center;
+    font-size: x-large;
 }
+
+.modal {
+    overflow-y: auto; /* Enable vertical scrolling */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  .modal-dialog {
+    width: 80vw;
+    max-height: 90vh;
+  }
+  
+  .modal-body {
+    height: 400px; /* Fixed height for the modal body */
+    width: 100%; /* Fixed width for the modal body */
+    overflow-y: auto; /* Enable vertical scrolling within the modal body */
+  }
+
+  .modal img {
+    width: 100%;
+    height: 100%;
+    margin-left: 60%;
+  }
   
   

@@ -80,5 +80,30 @@
     </div>
     <div id="checkboxContainer"></div>
     <div id="pagination"></div>
+
+    <script>
+      $(document).ready(function() {
+        // Place the code here
+        $("#checkboxContainer").on("change", "input[type='checkbox']", function() {
+          var checkedCheckboxes = $("#checkboxContainer input[type='checkbox']:checked");
+  
+          if (checkedCheckboxes.length > 0) {
+            console.log("At least one checkbox is checked.");
+  
+            var checkedValues = checkedCheckboxes.map(function() {
+              return $(this).val();
+            }).get();
+  
+            console.log("Checked checkboxes: ", checkedValues);
+          } else {
+            console.log("No checkboxes are checked.");
+          }
+        });
+  
+        // Other code or function calls if needed
+      });
+    </script>
+  </body>
+  </html>
   </body>
 </html>

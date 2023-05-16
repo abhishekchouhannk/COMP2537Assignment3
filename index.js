@@ -146,7 +146,7 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
   });
 };
 
-const setup = async () => {
+const setup = async (checked) => {
   // test out poke api using axios here
 
   $("#pokeCards").empty();
@@ -222,3 +222,65 @@ const setup = async () => {
 };
 
 $(document).ready(setup);
+
+let typesSelected = [];
+let counter = 0;
+
+async function fetchByType(type) {
+  let response = await axios.get(
+    `https://pokeapi.co/api/v2/type/${type}`
+  );
+  pokemons = response.data.pokemon;
+  // console.log(pokemons);
+  let names = [];
+  for (i = 0; i < pokemons.length; i++) {
+    names[i] = pokemons[i].pokemon.name;
+  }
+  // console.log(names);
+  typesSelected[0] = names;
+  return pokemons;
+}
+
+fetchByType(1);
+
+let int = [[1, 2, 3, 4, 5, 6], [1, 2, 3, 5, 7], [1, 2]];
+
+function findCommonElementsInArrays(arrays) {
+  if (arrays.length === 0) {
+    return [];
+  }
+
+  // Copy the first array as the initial common elements
+  let commonElements = arrays[0].slice();
+
+  for (let i = 1; i < arrays.length; i++) {
+    const currentArray = arrays[i];
+    commonElements = commonElements.filter((element) => currentArray.includes(element));
+  }
+
+  return commonElements;
+}
+
+console.log(findCommonElementsInArrays(int));
+
+// let normal = 
+
+// $("#checkboxContainer").on('change', "input[type='checkbox']", function() {
+//   // Get the checked checkboxes
+//   var checkedCheckboxes = $("#checkboxContainer input[type='checkbox']:checked");
+
+//   // Check if any checkboxes are checked
+//   if (checkedCheckboxes.length > 0) {
+//     console.log("At least one checkbox is checked.");
+
+//     // Retrieve the values of the checked checkboxes
+//     var checkedValues = checkedCheckboxes.map(function() {
+//       return $(this).val();
+//     }).get();
+
+//     console.log("Checked checkboxes: ", checkedValues);
+//   } else {
+//     console.log("No checkboxes are checked.");
+//   }
+// });
+

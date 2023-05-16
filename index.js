@@ -109,6 +109,7 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
 
   // displaying types of pokemon below
   const checkboxContainer = $('#checkboxContainer');
+  checkboxContainer.empty();
   
   types.forEach((type) => {
     const checkboxId = `checkbox_${type}`;

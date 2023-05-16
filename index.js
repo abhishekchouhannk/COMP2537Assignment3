@@ -1,6 +1,24 @@
 const PAGE_SIZE = 10;
 let currentPage = 1;
 let pokemons = [];
+let types = [];
+
+(async () => {
+  try {
+    const response = await axios.get("https://pokeapi.co/api/v2/type/");
+    let typeData = response.data.results;
+    // console.log(typeData);
+    // Use types here
+    for (i = 0; i < typeData.length; i++) {
+      types[i] = typeData[i].name;
+    }
+    // console.log(types);
+  } catch (error) {
+    console.error("Error fetching types:", error);
+    // Handle error here
+  }
+})();
+
 
 const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -24,11 +42,6 @@ const updatePaginationDiv = (currentPage, numPages) => {
     }
   }
 
-  // if (currentPage == numPages - 1 ||  currentPage == numPages) {
-  //   endPage = numPages;
-  // } else {
-  //   endPage = currentPage + 2;
-  // }
   $("#pagination").append(`
     <button class="btn btn-primary page ml-1 numberedButtons" value="1">Start</button>
     `);
@@ -78,15 +91,16 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
   let number;
   if (match) {
     number = match[1] - "0";
-    console.log(number); // Output: 14
+    // console.log(number); // Output: 14
   } else {
     console.log("No number found in the URL");
   }
 
+  // pokemon numbers being displayed on screen
   let startPokemon = number;
   let endPokemon = number + 9;
-  // console.log((selected_pokemons[0].url.substring(34, 35)) - '0');
 
+  // update status div that tells how many pokemons were fetched and are being displayed at present
   $("#displayed").empty();
   $("#displayed").append(
     `Displaying Pokemon ${startPokemon}-${endPokemon} of ${pokemons.length}`

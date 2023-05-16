@@ -85,6 +85,7 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
     currentPage * PAGE_SIZE
   );
   const url = selected_pokemons[0].url;
+  console.log(url);
   const regex = /\/(\d+)\/$/;
   const match = url.match(regex);
 
@@ -107,29 +108,6 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
     `Displaying Pokemon ${startPokemon}-${endPokemon} of ${pokemons.length}`
   );
 
-  // displaying types of pokemon below
-  const checkboxContainer = $('#checkboxContainer');
-  
-  types.forEach((type) => {
-    const checkboxId = `checkbox_${type}`;
-    
-    const checkbox = $('<input>', {
-      type: 'checkbox',
-      id: checkboxId,
-      value: type,
-      class: 'form-check-input'
-    });
-    
-    const label = $('<label>', {
-      for: checkboxId,
-      text: capitalizeFirstLetter(type),
-      class: 'form-check-label ml-2'
-    });
-    
-    const checkboxContainerDiv = $('<div>').addClass('form-check').append(checkbox, label);
-    checkboxContainer.append(checkboxContainerDiv);
-  });
-
   $("#pokeCards").empty();
 
   selected_pokemons.forEach(async (pokemon) => {
@@ -145,6 +123,32 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
         `);
   });
 };
+
+function displayTypes() {
+   // displaying types of pokemon below
+   const checkboxContainer = $('#checkboxContainer');
+   let typeCounter = 0;
+   types.forEach((type) => {
+     const checkboxId = `checkbox_${type}`;
+     
+     const checkbox = $('<input>', {
+       type: 'checkbox',
+       id: checkboxId,
+       value: typeCounter,
+       class: 'form-check-input'
+     });
+     
+     const label = $('<label>', {
+       for: checkboxId,
+       text: capitalizeFirstLetter(type),
+       class: 'form-check-label ml-2'
+     });
+     typeCounter++;
+     const checkboxContainerDiv = $('<div>').addClass('form-check').append(checkbox, label);
+     checkboxContainer.append(checkboxContainerDiv);
+   });
+ 
+}
 
 const setup = async (checked) => {
   // test out poke api using axios here
@@ -211,6 +215,8 @@ const setup = async (checked) => {
         `);
   });
 
+  displayTypes();
+
   // add event listener to pagination buttons
   $("body").on("click", ".numberedButtons", async function (e) {
     currentPage = Number(e.target.value);
@@ -223,7 +229,7 @@ const setup = async (checked) => {
 
 $(document).ready(setup);
 
-let typesSelected = [];
+let currentPokemons = [];
 let counter = 0;
 
 async function fetchByType(type) {
@@ -232,36 +238,74 @@ async function fetchByType(type) {
   );
   pokemons = response.data.pokemon;
   // console.log(pokemons);
-  let names = [];
+  let selected_pokemons = [];
   for (i = 0; i < pokemons.length; i++) {
-    names[i] = pokemons[i].pokemon.name;
+    selected_pokemons[i] = pokemons[i].pokemon;
   }
+  currentPokemons[counter] = selected_pokemons;
+  // console.log(selected_pokemons)
   // console.log(names);
-  typesSelected[0] = names;
-  return pokemons;
+  // console.log(currentPokemons);
+  return selected_pokemons;
 }
 
-fetchByType(1);
+async function fetchByTypeAndUpdate(checkedValues) {
+  try {
+    await Promise.all(
+      checkedValues.map(async (value) => {
+        await fetchByType(value - '0' + 1);
+        counter++;
+      })
+    );
+    paginate(currentPage, PAGE_SIZE, findCommonPokemons(currentPokemons));
+    const numPages = Math.ceil(currentPokemons.length / PAGE_SIZE);
+    updatePaginationDiv(currentPage, numPages);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-let int = [[1, 2, 3, 4, 5, 6], [1, 2, 3, 5, 7], [1, 2]];
-
-function findCommonElementsInArrays(arrays) {
-  if (arrays.length === 0) {
+function findCommonPokemons(pokemonArrays) {
+  if (pokemonArrays.length === 0) {
     return [];
   }
 
-  // Copy the first array as the initial common elements
-  let commonElements = arrays[0].slice();
-
-  for (let i = 1; i < arrays.length; i++) {
-    const currentArray = arrays[i];
-    commonElements = commonElements.filter((element) => currentArray.includes(element));
-  }
-
-  return commonElements;
+  return pokemonArrays.reduce((commonPokemons, currentArray) => {
+    // Filter the commonPokemons array by checking if each Pokémon object exists in the currentArray
+    return commonPokemons.filter((pokemon) =>
+      currentArray.some((currentPokemon) =>
+        isSamePokemon(pokemon, currentPokemon)
+      )
+    );
+  });
 }
 
-console.log(findCommonElementsInArrays(int));
+function isSamePokemon(pokemon1, pokemon2) {
+  return pokemon1.name === pokemon2.name && pokemon1.url === pokemon2.url;
+}
+
+
+// fetchByType(1);
+
+// let int = [[1, 2, 3, 4, 5, 6], [1, 2, 3, 5, 7], [1, 2]];
+
+// function findCommonElementsInArrays(arrays) {
+//   if (arrays.length === 0) {
+//     return [];
+//   }
+
+//   // Copy the first array as the initial common elements
+//   let commonElements = arrays[0].slice();
+
+//   for (let i = 1; i < arrays.length; i++) {
+//     const currentArray = arrays[i];
+//     commonElements = commonElements.filter((element) => currentArray.includes(element));
+//   }
+
+//   return commonElements;
+// }
+
+// console.log(findCommonElementsInArrays(int));
 
 // let normal = 
 

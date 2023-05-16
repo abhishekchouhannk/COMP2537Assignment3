@@ -82,17 +82,30 @@
     <div id="pagination"></div>
 
     <script>
+
       $(document).ready(function() {
         // Place the code here
         $("#checkboxContainer").on("change", "input[type='checkbox']", function() {
           var checkedCheckboxes = $("#checkboxContainer input[type='checkbox']:checked");
-  
+
+
           if (checkedCheckboxes.length > 0) {
             console.log("At least one checkbox is checked.");
-  
+            currentPage = 1;
+
             var checkedValues = checkedCheckboxes.map(function() {
               return $(this).val();
             }).get();
+
+            currentPokemons = [];
+            counter = 0;
+
+            fetchByTypeAndUpdate(checkedValues);
+
+            // for (i = 0; i < checkedValues.length; i++) {
+            //   // console.log(checkedValues[i] - '0');
+            //   fetchByType((checkedValues[i] - '0') + 1);
+            // }
   
             console.log("Checked checkboxes: ", checkedValues);
           } else {

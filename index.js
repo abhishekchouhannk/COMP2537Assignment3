@@ -214,12 +214,12 @@ const setup = async (checked) => {
         <h5>${res.data.id}</h5>
         `);
   });
-
+  $('#checkboxContainer').empty();
   displayTypes();
-
   // add event listener to pagination buttons
   $("body").on("click", ".numberedButtons", async function (e) {
     currentPage = Number(e.target.value);
+
     paginate(currentPage, PAGE_SIZE, pokemons);
 
     //update pagination buttons
@@ -257,9 +257,15 @@ async function fetchByTypeAndUpdate(checkedValues) {
         counter++;
       })
     );
-    paginate(currentPage, PAGE_SIZE, findCommonPokemons(currentPokemons));
-    const numPages = Math.ceil(currentPokemons.length / PAGE_SIZE);
-    updatePaginationDiv(currentPage, numPages);
+    const result = findCommonPokemons(currentPokemons);
+    if (result.length != 0) {
+      paginate(currentPage, PAGE_SIZE, result);
+      const numPages = Math.ceil(currentPokemons.length / PAGE_SIZE);
+      updatePaginationDiv(currentPage, numPages);
+    } else {
+      $('#pokeCards').empty();
+      $('#pokeCards').append('No results found');
+    }
   } catch (error) {
     console.error(error);
   }

@@ -88,6 +88,7 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
   const regex = /\/(\d+)\/$/;
   const match = url.match(regex);
 
+  // taking out number of the first pokemon using regex
   let number;
   if (match) {
     number = match[1] - "0";
@@ -105,6 +106,29 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
   $("#displayed").append(
     `Displaying Pokemon ${startPokemon}-${endPokemon} of ${pokemons.length}`
   );
+
+  // displaying types of pokemon below
+  const checkboxContainer = $('#checkboxContainer');
+  
+  types.forEach((type) => {
+    const checkboxId = `checkbox_${type}`;
+    
+    const checkbox = $('<input>', {
+      type: 'checkbox',
+      id: checkboxId,
+      value: type,
+      class: 'form-check-input'
+    });
+    
+    const label = $('<label>', {
+      for: checkboxId,
+      text: capitalizeFirstLetter(type),
+      class: 'form-check-label ml-2'
+    });
+    
+    const checkboxContainerDiv = $('<div>').addClass('form-check').append(checkbox, label);
+    checkboxContainer.append(checkboxContainerDiv);
+  });
 
   $("#pokeCards").empty();
 

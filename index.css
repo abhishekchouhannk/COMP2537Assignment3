@@ -15,7 +15,6 @@ body {
 }
 
 #pokeCards {
-  margin-top: 2%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -71,7 +70,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .current {
@@ -107,5 +106,21 @@ h3 {
 
 #displayed {
   color: #2595c2;
-  margin-top: 20px;
 }
+
+#checkboxContainer {
+  margin-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.form-check {
+  margin-right: 2.5%;
+  margin-bottom: 10px;
+}
+
+.form-check-label {
+  margin-left: 5px;
+}
+

@@ -109,8 +109,13 @@
   
             console.log("Checked checkboxes: ", checkedValues);
           } else {
+            const numPages = Math.ceil(pokemons.length / PAGE_SIZE);
             console.log("No checkboxes are checked.");
-            setup();
+            currentPage = 1;
+            paginate(currentPage, PAGE_SIZE, pokemons);
+
+            //update pagination buttons
+            updatePaginationDiv(currentPage, numPages);
           }
         });
   

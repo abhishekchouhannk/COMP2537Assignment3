@@ -31,7 +31,11 @@ const updatePaginationDiv = (currentPage, numPages) => {
 
   if (currentPage == 1 || currentPage == 2) {
     startPage = 1;
-    endPage = 5;
+    if (!(numPages < 5)) {
+      endPage = 5;
+    } else {
+      endPage = numPages;
+    }
   } else {
     startPage = currentPage - 2;
     if (currentPage == numPages - 1 || currentPage == numPages) {
@@ -80,10 +84,12 @@ const updatePaginationDiv = (currentPage, numPages) => {
 };
 
 const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
-  selected_pokemons = pokemons.slice(
+  console.log(pokemons);
+  let selected_pokemons = pokemons.slice(
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE
   );
+  console.log(selected_pokemons);
   const url = selected_pokemons[0].url;
   console.log(url);
   const regex = /\/(\d+)\/$/;
@@ -236,11 +242,11 @@ async function fetchByType(type) {
   let response = await axios.get(
     `https://pokeapi.co/api/v2/type/${type}`
   );
-  pokemons = response.data.pokemon;
+  typePokemons = response.data.pokemon;
   // console.log(pokemons);
   let selected_pokemons = [];
-  for (i = 0; i < pokemons.length; i++) {
-    selected_pokemons[i] = pokemons[i].pokemon;
+  for (i = 0; i < typePokemons.length; i++) {
+    selected_pokemons[i] = typePokemons[i].pokemon;
   }
   currentPokemons[counter] = selected_pokemons;
   // console.log(selected_pokemons)
@@ -260,7 +266,7 @@ async function fetchByTypeAndUpdate(checkedValues) {
     const result = findCommonPokemons(currentPokemons);
     if (result.length != 0) {
       paginate(currentPage, PAGE_SIZE, result);
-      const numPages = Math.ceil(currentPokemons.length / PAGE_SIZE);
+      const numPages = Math.ceil(result.length / PAGE_SIZE);
       updatePaginationDiv(currentPage, numPages);
     } else {
       $('#pokeCards').empty();

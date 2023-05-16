@@ -1,18 +1,18 @@
 body {
-    font-family: "Comic Sans MS", cursive;
-  }
+  font-family: "Comic Sans MS", cursive;
+}
 
-  .header {
-    background-color: #edaa4d;
-    padding: 20px;
-    text-align: center;
-  }
+.header {
+  background-color: #edaa4d;
+  padding: 20px;
+  text-align: center;
+}
 
-  .header h1 {
-    font-size: 36px;
-    color: #ff0000;
-    margin: 0;
-  }
+.header h1 {
+  font-size: 36px;
+  color: #ff0000;
+  margin: 0;
+}
 
 #pokeCards {
   margin-top: 2%;
@@ -67,7 +67,7 @@ h3 {
 } */
 
 #pagination {
-    margin-top: 20px;
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -75,38 +75,37 @@ h3 {
 }
 
 .current {
-    background-color: #d1116e;
+  background-color: #d1116e;
 }
 
 #displayed {
-    text-align: center;
-    font-size: x-large;
+  text-align: center;
+  font-size: x-large;
 }
 
 .modal {
-    overflow-y: auto; /* Enable vertical scrolling */
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-  }
-  
-  .modal-dialog {
-    width: 80vw;
-    max-height: 90vh;
-  }
-  
-  .modal-body {
-    height: 300px; /* Fixed height for the modal body */
-    width: 100%; /* Fixed width for the modal body */
-    overflow-y: auto; /* Enable vertical scrolling within the modal body */
-  }
+  overflow-y: auto; /* Enable vertical scrolling */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
-  .modal img {
-    width: 100%;
-    height: 100%;
-    margin-left: 100px;
-  }
+.modal-dialog {
+  width: 80vw;
+  max-height: 90vh;
+}
 
-  #displayed {
-    color: #2595c2;
-    margin-top: 20px;
-  }
-  
+.modal-body {
+  height: 300px; /* Fixed height for the modal body */
+  width: 100%; /* Fixed width for the modal body */
+  overflow-y: auto; /* Enable vertical scrolling within the modal body */
+}
+
+.modal img {
+  width: 100%;
+  height: 100%;
+  margin-left: 100px;
+}
+
+#displayed {
+  color: #2595c2;
+  margin-top: 20px;
+}

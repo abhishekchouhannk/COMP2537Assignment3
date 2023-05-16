@@ -33,12 +33,13 @@ const updatePaginationDiv = (currentPage, numPages) => {
     <button class="btn btn-primary page ml-1 numberedButtons" value="1">Start</button>
     `);
 
-    if (!(currentPage == 1)) {
-      $("#pagination").append(`
-      <button class="btn btn-primary page ml-1 numberedButtons" value="${currentPage - 1}"><<</button>
+  if (!(currentPage == 1)) {
+    $("#pagination").append(`
+      <button class="btn btn-primary page ml-1 numberedButtons" value="${
+        currentPage - 1
+      }"><<</button>
       `);
-    }
-    
+  }
 
   for (let i = startPage; i <= endPage; i++) {
     if (i == currentPage) {
@@ -54,11 +55,11 @@ const updatePaginationDiv = (currentPage, numPages) => {
 
   if (!(currentPage == numPages)) {
     $("#pagination").append(`
-    <button class="btn btn-primary page ml-1 numberedButtons" value="${currentPage + 1}" style="margin-left: 20px;">>></button>
+    <button class="btn btn-primary page ml-1 numberedButtons" value="${
+      currentPage + 1
+    }" style="margin-left: 20px;">>></button>
     `);
   }
-
-  
 
   $("#pagination").append(`
     <button class="btn btn-primary page ml-1 numberedButtons" value="${numPages}">Last</button>
@@ -70,24 +71,26 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE
   );
-  const url = selected_pokemons[0].url;  
+  const url = selected_pokemons[0].url;
   const regex = /\/(\d+)\/$/;
   const match = url.match(regex);
 
   let number;
   if (match) {
-    number = match[1] - '0';
+    number = match[1] - "0";
     console.log(number); // Output: 14
   } else {
     console.log("No number found in the URL");
-  } 
+  }
 
   let startPokemon = number;
   let endPokemon = number + 9;
   // console.log((selected_pokemons[0].url.substring(34, 35)) - '0');
 
-  $('#displayed').empty();
-  $('#displayed').append(`Displaying Pokemon ${startPokemon}-${endPokemon} of ${pokemons.length}`);
+  $("#displayed").empty();
+  $("#displayed").append(
+    `Displaying Pokemon ${startPokemon}-${endPokemon} of ${pokemons.length}`
+  );
 
   $("#pokeCards").empty();
 
